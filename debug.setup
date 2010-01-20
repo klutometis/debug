@@ -1,0 +1,8 @@
+;;; -*- Hen -*-
+(include "setup-helper")
+
+(verify-extension-name "debug")
+
+(setup-shared-extension-module
+ 'debug
+ (extension-version 0.1))

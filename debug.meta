@@ -1,0 +1,8 @@
+((egg "debug.egg")
+ (files "debug.scm"
+        "debug.setup")
+ (license "GPL-3")
+ (category debugging)
+ (author "Peter Danenberg")
+ (test-depends test)
+ (synopsis "Trivial debugging macro"))
