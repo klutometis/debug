@@ -5,4 +5,4 @@
  (define-syntax debug
   (syntax-rules ()
     ((_ x ...)
-     (print `((x ,x) ...))))))
+     (display `((x ,x) ...) (current-error-port))))))
