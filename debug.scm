@@ -29,6 +29,7 @@
                   (,%apply ,%values return-values))))))))))
 
  (define-syntax debug
-   (syntax-rules ()
-     ((_ x ...)
-      (display `((x ,x) ...) (current-error-port))))))
+  (syntax-rules ()
+    ((_ x ...)
+     (begin (display `((x ,x) ...) (current-error-port))
+            (display #\newline (current-error-port)))))))
