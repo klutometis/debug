@@ -5,4 +5,5 @@
  (define-syntax debug
   (syntax-rules ()
     ((_ x ...)
-     (display `((x ,x) ...) (current-error-port))))))
+     (begin (display `((x ,x) ...) (current-error-port))
+            (display #\newline (current-error-port)))))))
