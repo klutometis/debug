@@ -20,12 +20,18 @@
              (,%set!
               ,f
               (,%lambda x
-                (,%format #t ";; Arguments to ~a: ~a~%" ',f x)
+                (,%format (current-error-port)
+                          ";; Arguments to ~a: ~a~%"
+                          ',f
+                          x)
                 (,%let ((return-values
                          (,%call-with-values
                              (,%lambda () (,%apply ,%f x))
                            (,%lambda x x))))
-                  (,%format #t ";; Values from ~a: ~a~%" ',f return-values)
+                  (,%format (current-error-port)
+                            ";; Values from ~a: ~a~%"
+                            ',f
+                            return-values)
                   (,%apply ,%values return-values))))))))))
 
  (define-syntax debug
