@@ -1,7 +1,7 @@
 (module
  debug
  (debug trace)
- (import chicken scheme)
+ (import chicken scheme extras)
 
  (define-syntax trace
    (er-macro-transformer
