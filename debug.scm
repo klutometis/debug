@@ -37,5 +37,5 @@
  (define-syntax debug
   (syntax-rules ()
     ((_ x ...)
-     (begin (display `((x ,x) ...) (current-error-port))
-            (display #\newline (current-error-port)))))))
+     (begin (write `((x ,x) ...) (current-error-port))
+            (newline (current-error-port)))))))
