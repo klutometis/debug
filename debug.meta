@@ -4,6 +4,6 @@
  (license "GPL-3")
  (category debugging)
  (author "Peter Danenberg")
- (needs setup-helper)
+ (needs setup-helper matchable)
  (test-depends test)
  (synopsis "Trivial debugging macro"))
