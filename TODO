@@ -1,2 +1,5 @@
 # -*- mode: org; -*-
+* TODO e.g. syslog
+  mechanism for debugging to different streams: stdout, syslog,
+  etc. global flag?
 * TODO =untrace=
