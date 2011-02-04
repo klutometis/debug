@@ -2,4 +2,7 @@
 * TODO e.g. syslog
   mechanism for debugging to different streams: stdout, syslog,
   etc. global flag?
+
+  a wrapper around =(current-error-port)= which syslogs it, for
+  instance.
 * TODO =untrace=
