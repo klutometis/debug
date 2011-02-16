@@ -1,8 +1,120 @@
 # -*- mode: org; -*-
-* TODO e.g. syslog
+* CANCELED =debug= based on =er-macro-transformer=
+  CLOSED: [2011-02-16 Wed 01:19]
+  though syntax-rules is more elegant?
+
+  fail:
+
+  #+BEGIN_SRC scheme :tangle debug-er.scm :shebang #!/usr/bin/env chicken-scheme
+    (use chicken extras ports matchable)
+    (import-for-syntax matchable)
+    
+    ;;; (write `(((+ 2 2) ,(+ 2 2)) ((+ 2 3) ,(+ 2 3))))
+    (define-syntax debug
+      (er-macro-transformer
+       (lambda (expression rename compare)
+         (match expression
+           ((_) '(void))
+           ((_ . expressions)
+            `(write `,,(map (lambda (expression)
+                            `(',expression ,expression))
+                          expressions))
+            #;`(write `((,',(car expressions) ,(+ 2 2))))
+            #;
+            `(begin ,@(map (lambda (expression)
+                             `(write ',expression ,expression))
+                           expressions))
+            #;
+            `(write
+            ,@(map (lambda (expression)
+            ``(expression ,,expression))
+            expressions)))))))
+    
+    ,x (debug (+ 2 2) (+ 2 3))
+    
+  #+END_SRC
+
+  #+BEGIN_SRC scheme :tangle debug-with-output-to-port.scm :shebang #!/usr/bin/env chicken-scheme
+    (use chicken ports test)
+    (import-for-syntax scheme chicken ports test)
+    
+    (define-syntax debug
+      (syntax-rules ()
+        ((_ x ...)
+         (with-output-to-port
+             (current-error-port)
+           (lambda ()
+             (write `((x ,x) ...))
+             (newline))))))
+    
+    (let ((output
+           (with-output-to-string
+             (lambda ()
+               (with-error-output-to-port
+                (current-output-port)
+                (lambda ()
+                  (debug '(mein gott) 'etc)))))))
+      (display
+       (string=?
+        "(((quote (mein gott)) (mein gott)) ((quote etc) etc))\n"
+        output)))
+    
+  #+END_SRC
+* DONE e.g. syslog
+  CLOSED: [2011-02-16 Wed 01:25]
   mechanism for debugging to different streams: stdout, syslog,
-  etc. global flag?
+  etc. global flag? (yes, a parameter.)
 
   a wrapper around =(current-error-port)= which syslogs it, for
   instance.
+
+  =(with-output-to-syslog [priority] thunk)= which takes a default
+  priority from some parameter?
+
+  #+BEGIN_SRC scheme :tangle with-output-to-syslog.scm :shebang #!/usr/bin/env chicken-scheme
+    (use syslog srfi-13 srfi-16 srfi-39 ports debug)
+    
+    (define default-priority (make-parameter prio/debug))
+    
+    (define with-output-to-syslog
+      (case-lambda
+       ((thunk)
+        (with-output-to-syslog (default-priority) thunk))
+       ((priority thunk)
+        (syslog priority (with-output-to-string thunk)))))
+    
+    (with-output-to-syslog
+     (lambda () (display '(mein gott full of stars))))
+    
+    (define make-syslog-port
+      (case-lambda
+       (()
+        (make-syslog-port (default-priority)))
+       ((priority)
+        (let ((buffer ""))
+          (make-output-port
+           (lambda (scribendum)
+             (set! buffer (string-append/shared buffer scribendum)))
+           noop
+           (lambda () (syslog priority buffer)))))))
+    
+    (define-syntax debug/syslog
+      (er-macro-transformer
+       (lambda (expression rename compare)
+         `(let ((port (make-syslog-port)))
+            (with-error-output-to-port
+             port
+             (lambda ()
+               (debug ,@(cdr expression))
+               (flush-output port)))))))
+    
+    (debug/syslog (+ 2 2) (+ 2 3))
+    
+  #+END_SRC
+  #+BEGIN_SRC scheme :tangle test-debug-syslog.scm :shebang #!/usr/bin/env chicken-scheme
+    (use debug)
+    (debug/syslog (+ 2 2) (+ 2 3))
+    
+  #+END_SRC
+
 * TODO =untrace=
