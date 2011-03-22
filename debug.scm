@@ -41,8 +41,7 @@
       (with-output-to-port
           (current-error-port)
         (lambda ()
-          (write `((x ,x) ...))
-          (newline))))))
+          (pp `((x ,x) ...)))))))
 
  (define default-priority (make-parameter prio/debug))
  
