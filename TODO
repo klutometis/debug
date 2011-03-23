@@ -1,5 +1,7 @@
 # -*- mode: org; -*-
 * TODO =pp=
+  ah, i see: sometimes we do want =write= and =newline=, when a more
+  compact representation is desirable.
 * CANCELED =debug= based on =er-macro-transformer=
   CLOSED: [2011-02-16 Wed 01:19]
   though syntax-rules is more elegant?
