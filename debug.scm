@@ -54,7 +54,7 @@
        (make-output-port
         (lambda (scribendum)
           (set! buffer (string-append/shared buffer scribendum)))
-        noop
+        void
         (lambda () (syslog priority buffer)))))))
     
  (define-syntax debug/syslog
