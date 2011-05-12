@@ -1,9 +1,9 @@
 (module
  debug
  (debug debug/syslog make-syslog-port trace)
- (import chicken scheme extras data-structures ports)
+ (import chicken scheme extras data-structures ports srfi-13)
  (import-for-syntax ports matchable)
- (use syslog srfi-13)
+ (use syslog)
 
  (define-syntax trace
    (er-macro-transformer
