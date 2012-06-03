@@ -1,6 +1,5 @@
-(module
- debug
- (debug debug/syslog make-syslog-port trace)
+(module debug
+  (debug debug/syslog make-syslog-port trace)
  (import chicken scheme extras data-structures ports srfi-13)
  (import-for-syntax ports matchable)
  (use syslog)
@@ -21,19 +20,19 @@
              (,%set!
               ,f
               (,%lambda x
-                (,%format (current-error-port)
-                          ";; Arguments to ~a: ~a~%"
-                          ',f
-                          x)
-                (,%let ((return-values
-                         (,%call-with-values
+                   (,%format (current-error-port)
+                             ";; Arguments to ~a: ~a~%"
+                             ',f
+                             x)
+                   (,%let ((return-values
+                            (,%call-with-values
                              (,%lambda () (,%apply ,%f x))
-                           (,%lambda x x))))
-                  (,%format (current-error-port)
-                            ";; Values from ~a: ~a~%"
-                            ',f
-                            return-values)
-                  (,%apply ,%values return-values))))))))))
+                             (,%lambda x x))))
+                     (,%format (current-error-port)
+                               ";; Values from ~a: ~a~%"
+                               ',f
+                               return-values)
+                          (,%apply ,%values return-values))))))))))
 
  (define-syntax debug
    (syntax-rules ()
