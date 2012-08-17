@@ -5,4 +5,4 @@
 
 (setup-shared-extension-module
  'debug
- (extension-version 0.1))
+ (extension-version "0.1.2"))

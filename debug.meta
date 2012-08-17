@@ -1,7 +1,7 @@
 ((egg "debug.egg")
  (files "debug.scm"
         "debug.setup")
- (license "GPL-3")
+ (license "BSD")
  (category debugging)
  (author "Peter Danenberg")
  (needs setup-helper matchable syslog)
