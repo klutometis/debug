@@ -1,8 +1,10 @@
 (module debug
-  (debug debug/syslog make-syslog-port trace)
+  (debug debug? debug/syslog make-syslog-port trace)
  (import chicken scheme extras data-structures ports srfi-13)
  (import-for-syntax ports matchable)
  (use syslog)
+
+ (define debug? (make-parameter #t))
 
  (define-syntax trace
    (er-macro-transformer
@@ -15,24 +17,28 @@
               (%format (rename 'format))
               (%values (rename 'values))
               (%let (rename 'let))
-              (%f (rename 'f)))
-          `(,%let ((,%f ,f))
-             (,%set!
-              ,f
-              (,%lambda x
-                   (,%format (current-error-port)
-                             ";; Arguments to ~a: ~a~%"
-                             ',f
-                             x)
-                   (,%let ((return-values
-                            (,%call-with-values
-                             (,%lambda () (,%apply ,%f x))
-                             (,%lambda x x))))
-                     (,%format (current-error-port)
-                               ";; Values from ~a: ~a~%"
-                               ',f
-                               return-values)
-                          (,%apply ,%values return-values))))))))))
+              (%f (rename 'f))
+              (%when (rename 'when))
+              (%debug? (rename 'debug?)))
+          `(,%when
+            (,%debug?)
+            (,%let ((,%f ,f))
+                   (,%set!
+                    ,f
+                    (,%lambda x
+                         (,%format (current-error-port)
+                                   ";; Arguments to ~a: ~a~%"
+                                   ',f
+                                   x)
+                         (,%let ((return-values
+                                  (,%call-with-values
+                                   (,%lambda () (,%apply ,%f x))
+                                   (,%lambda x x))))
+                                (,%format (current-error-port)
+                                          ";; Values from ~a: ~a~%"
+                                          ',f
+                                          return-values)
+                                (,%apply ,%values return-values)))))))))))
 
  (define-syntax debug
    (syntax-rules ()
@@ -40,7 +46,7 @@
       (with-output-to-port
           (current-error-port)
         (lambda ()
-          (pp `((x ,x) ...)))))))
+          (when (debug?) (pp `((x ,x) ...))))))))
 
  (define default-priority (make-parameter prio/debug))
  
@@ -63,5 +69,6 @@
          (with-error-output-to-port
           port
           (lambda ()
-            (debug ,@(cdr expression))
-            (flush-output port))))))))
+            (when (debug?)
+              (debug ,@(cdr expression))
+              (flush-output port)))))))))
