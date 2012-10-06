@@ -1,9 +1,90 @@
-* TODO Consider putting a guard around the expressions to catch conditions.
+* TODO =untrace=
+* DONE Quote
+  CLOSED: [2012-10-06 Sat 14:11]
+  - CLOSING NOTE [2012-10-06 Sat 14:11] \\
+    Armstrong it is.
+  Joshua Bloch:
+
+  #+BEGIN_QUOTE
+  Debuggers are nice and there are times when I would have used a
+  print statement, but instead use a breakpoint. So yes, I use
+  debuggers occasionally, but I don’t feel lost without them, either.
+  So long as I can put print statements in the code, and can read it
+  thoroughly, I can usually find the bugs.
+  #+END_QUOTE
+
+  Joe Armstrong:
+
+  #+BEGIN_QUOTE
+  The great gods of programming said, “Thou shalt put printf
+  statements in your program at the point where you think it’s gone
+  wrong, recompile, and run it.”
+  #+END_QUOTE
+* DONE Consider putting a guard around the expressions to catch conditions.
+  CLOSED: [2012-10-06 Sat 14:11]
   That way, we can still see good debug info even in the midst of
   failure.
-* TODO =pp=
+* DONE =pp=
+  CLOSED: [2012-10-06 Sat 14:11]
   ah, i see: sometimes we do want =write= and =newline=, when a more
   compact representation is desirable.
+* DONE e.g. syslog
+  CLOSED: [2011-02-16 Wed 01:25]
+  mechanism for debugging to different streams: stdout, syslog,
+  etc. global flag? (yes, a parameter.)
+
+  a wrapper around =(current-error-port)= which syslogs it, for
+  instance.
+
+  =(with-output-to-syslog [priority] thunk)= which takes a default
+  priority from some parameter?
+
+  #+BEGIN_SRC scheme :tangle with-output-to-syslog.scm :shebang #!/usr/bin/env chicken-scheme
+    (use syslog srfi-13 srfi-16 srfi-39 ports debug)
+    
+    (define default-priority (make-parameter prio/debug))
+    
+    (define with-output-to-syslog
+      (case-lambda
+       ((thunk)
+        (with-output-to-syslog (default-priority) thunk))
+       ((priority thunk)
+        (syslog priority (with-output-to-string thunk)))))
+    
+    (with-output-to-syslog
+     (lambda () (display '(mein gott full of stars))))
+    
+    (define make-syslog-port
+      (case-lambda
+       (()
+        (make-syslog-port (default-priority)))
+       ((priority)
+        (let ((buffer ""))
+          (make-output-port
+           (lambda (scribendum)
+             (set! buffer (string-append/shared buffer scribendum)))
+           noop
+           (lambda () (syslog priority buffer)))))))
+    
+    (define-syntax debug/syslog
+      (er-macro-transformer
+       (lambda (expression rename compare)
+         `(let ((port (make-syslog-port)))
+            (with-error-output-to-port
+             port
+             (lambda ()
+               (debug ,@(cdr expression))
+               (flush-output port)))))))
+    
+    (debug/syslog (+ 2 2) (+ 2 3))
+    
+  #+END_SRC
+  #+BEGIN_SRC scheme :tangle test-debug-syslog.scm :shebang #!/usr/bin/env chicken-scheme
+    (use debug)
+    (debug/syslog (+ 2 2) (+ 2 3))
+    
+  #+END_SRC
+
 * CANCELED =debug= based on =er-macro-transformer=
   CLOSED: [2011-02-16 Wed 01:19]
   though syntax-rules is more elegant?
@@ -65,61 +146,3 @@
         output)))
     
   #+END_SRC
-* DONE e.g. syslog
-  CLOSED: [2011-02-16 Wed 01:25]
-  mechanism for debugging to different streams: stdout, syslog,
-  etc. global flag? (yes, a parameter.)
-
-  a wrapper around =(current-error-port)= which syslogs it, for
-  instance.
-
-  =(with-output-to-syslog [priority] thunk)= which takes a default
-  priority from some parameter?
-
-  #+BEGIN_SRC scheme :tangle with-output-to-syslog.scm :shebang #!/usr/bin/env chicken-scheme
-    (use syslog srfi-13 srfi-16 srfi-39 ports debug)
-    
-    (define default-priority (make-parameter prio/debug))
-    
-    (define with-output-to-syslog
-      (case-lambda
-       ((thunk)
-        (with-output-to-syslog (default-priority) thunk))
-       ((priority thunk)
-        (syslog priority (with-output-to-string thunk)))))
-    
-    (with-output-to-syslog
-     (lambda () (display '(mein gott full of stars))))
-    
-    (define make-syslog-port
-      (case-lambda
-       (()
-        (make-syslog-port (default-priority)))
-       ((priority)
-        (let ((buffer ""))
-          (make-output-port
-           (lambda (scribendum)
-             (set! buffer (string-append/shared buffer scribendum)))
-           noop
-           (lambda () (syslog priority buffer)))))))
-    
-    (define-syntax debug/syslog
-      (er-macro-transformer
-       (lambda (expression rename compare)
-         `(let ((port (make-syslog-port)))
-            (with-error-output-to-port
-             port
-             (lambda ()
-               (debug ,@(cdr expression))
-               (flush-output port)))))))
-    
-    (debug/syslog (+ 2 2) (+ 2 3))
-    
-  #+END_SRC
-  #+BEGIN_SRC scheme :tangle test-debug-syslog.scm :shebang #!/usr/bin/env chicken-scheme
-    (use debug)
-    (debug/syslog (+ 2 2) (+ 2 3))
-    
-  #+END_SRC
-
-* TODO =untrace=
