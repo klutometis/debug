@@ -63,7 +63,11 @@ expression and their evaluations."
          (when (debug?)
            (pp `((x ,(handle-exceptions
                       exn
-                      ((condition-property-accessor 'exn 'message) exn)
+                      (format "Error: ~a"
+                              ((condition-property-accessor
+                                'exn
+                                'message)
+                               exn))
                       x))
                  ...))))))))
 
