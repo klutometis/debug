@@ -11,7 +11,7 @@
             (debug x y)))))
 
 (test "Catching error"
-      "(((car '()) \"bad argument type\"))\n"
+      "(((car '()) \"Error: bad argument type\"))\n"
       (with-output-to-string
         (lambda ()
           (parameterize ((current-error-port (current-output-port)))
