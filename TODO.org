@@ -1,4 +1,6 @@
-# -*- mode: org; -*-
+* TODO Consider putting a guard around the expressions to catch conditions.
+  That way, we can still see good debug info even in the midst of
+  failure.
 * TODO =pp=
   ah, i see: sometimes we do want =write= and =newline=, when a more
   compact representation is desirable.
