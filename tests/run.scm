@@ -10,6 +10,13 @@
                 (y (lambda x x)))
             (debug x y)))))
 
+(test "Catching error"
+      "(((car '()) \"bad argument type\"))\n"
+      (with-output-to-string
+        (lambda ()
+          (parameterize ((current-error-port (current-output-port)))
+            (debug (car '()))))))
+
 (test "Debugging-off"
       ""
       (parameterize ((debug? #f)
