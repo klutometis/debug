@@ -4,6 +4,9 @@
  (license "BSD")
  (category debugging)
  (author "Peter Danenberg")
- (needs setup-helper matchable syslog)
+ (depends cock
+          matchable
+          setup-helper
+          syslog)
  (test-depends test)
- (synopsis "Trivial debugging macro"))
+ (synopsis "Some trivial debugging macros"))
