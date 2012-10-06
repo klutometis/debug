@@ -4,7 +4,8 @@
  (license "BSD")
  (category debugging)
  (author "Peter Danenberg")
- (depends cock
+ (depends alist-lib
+          cock
           matchable
           setup-helper
           syslog)
