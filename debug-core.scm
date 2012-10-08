@@ -63,18 +63,25 @@ expression and their evaluations."
          (when (debug?)
            (pp `((x ,(handle-exceptions
                       exn
-                      (format "Error: ~a; arguments: ~a"
-                              ((condition-property-accessor
-                                'exn
-                                'message)
-                               exn)
-                              (string-join
-                               (map ->string
-                                    ((condition-property-accessor
-                                      'exn
-                                      'arguments)
-                                     exn))
-                               ", "))
+                      (let ((message
+                             ((condition-property-accessor
+                                 'exn
+                                 'message)
+                                exn))
+                            (arguments
+                             ((condition-property-accessor
+                               'exn
+                               'arguments)
+                              exn)))
+                        (format "Error: ~a~a"
+                                message
+                                (if (null? arguments)
+                                    ""
+                                    (format
+                                     ": ~a"
+                                     (string-join
+                                      (map ->string arguments)
+                                      ", ")))))
                       x))
                  ...))))))))
 
