@@ -8,4 +8,5 @@
  (extension-version "0.3.2")
  compile-options: '(-X cock))
 
-(run (cock -o debug.wiki debug-core.scm))
+(run (cock -o debug.wiki debug-core.scm
+           "||" echo cock not "installed:" not creating documentation))
