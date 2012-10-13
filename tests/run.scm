@@ -39,3 +39,5 @@
           (lambda ()
             (parameterize ((current-error-port (current-output-port)))
               (debug (x)))))))
+
+(test-exit)
