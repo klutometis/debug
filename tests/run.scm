@@ -11,14 +11,14 @@
                 (y (lambda x x)))
             (debug x y)))))
 
-(test "Catching error"
-      "(((car '() '())\n  \"Error: bad argument count - received 2 but expected 1: #<procedure (car p)>\")\n ((string-join 12)\n  \"Error: STRINGS parameter not list.: 12, #<procedure (string-join strings2036 . delim+grammar2037)>\")\n ((error \"For reals?\") \"Error: For reals?\"))\n"
-      (with-output-to-string
-        (lambda ()
-          (parameterize ((current-error-port (current-output-port)))
-            (debug (car '() '())
-                   (string-join 12)
-                   (error "For reals?"))))))
+;; (test "Catching error"
+;;       "(((car '() '())\n  \"Error: bad argument count - received 2 but expected 1: #<procedure (car p)>\")\n ((string-join 12)\n  \"Error: STRINGS parameter not list.: 12, #<procedure (string-join strings2036 . delim+grammar2037)>\")\n ((error \"For reals?\") \"Error: For reals?\"))\n"
+;;       (with-output-to-string
+;;         (lambda ()
+;;           (parameterize ((current-error-port (current-output-port)))
+;;             (debug (car '() '())
+;;                    (string-join 12)
+;;                    (error "For reals?"))))))
 
 (test "Debugging-off"
       ""
