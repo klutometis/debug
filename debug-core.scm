@@ -61,28 +61,41 @@ expression and their evaluations."
          (current-error-port)
        (lambda ()
          (when (debug?)
-           (pp `((x ,(handle-exceptions
-                      exn
-                      (let ((message
-                             ((condition-property-accessor
-                                 'exn
-                                 'message)
-                                exn))
-                            (arguments
-                             ((condition-property-accessor
-                               'exn
-                               'arguments)
-                              exn)))
-                        (format "Error: ~a~a"
-                                message
-                                (if (null? arguments)
-                                    ""
-                                    (format
-                                     ": ~a"
-                                     (string-join
-                                      (map ->string arguments)
-                                      ", ")))))
-                      x))
+           ;; Handle some of the self-evaluating scalars in an ad-hoc
+           ;; fashion (can't do this with e.g. lists and symbols,
+           ;; though); alternatively: compare the expression with its
+           ;; evaluated form for equality over some arbitrary
+           ;; predicate (e.g. `equal?'): this might imply
+           ;; self-evaluation.
+           (pp `(,(if (or (boolean? 'x)
+                          (char? 'x)
+                          (number? 'x)
+                          (string? 'x)
+                          (vector? 'x))
+                      x
+                      `(x =>
+                          ,(handle-exceptions
+                               exn
+                             (let ((message
+                                    ((condition-property-accessor
+                                      'exn
+                                      'message)
+                                     exn))
+                                   (arguments
+                                    ((condition-property-accessor
+                                      'exn
+                                      'arguments)
+                                     exn)))
+                               (format "Error: ~a~a"
+                                       message
+                                       (if (null? arguments)
+                                           ""
+                                           (format
+                                            ": ~a"
+                                            (string-join
+                                             (map ->string arguments)
+                                             ", ")))))
+                             x)))
                  ...))))))))
 
 (define default-priority (make-parameter prio/debug))
