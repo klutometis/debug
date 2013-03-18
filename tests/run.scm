@@ -3,7 +3,7 @@
      test)
 
 (test "Trivial example"
-      "((x 2) (y #<procedure (y . x)>))\n"
+      "((x => 2) (y => #<procedure (y . x)>))\n"
       (with-output-to-string
         (lambda ()
           (set! current-error-port current-output-port)
@@ -31,7 +31,7 @@
               (debug x y))))))
 
 (test "Trace"
-      ";; Arguments to x: ()\n;; Values from x: (2)\n(((x) 2))\n"
+      ";; Arguments to x: ()\n;; Values from x: (2)\n(((x) => 2))\n"
       (begin
         (define (x) 2)
         (trace x)
