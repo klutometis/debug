@@ -1,4 +1,69 @@
-* TODO For literals, don’t bother printing the evaluation.
+* DONE For literals, don’t bother printing the evaluation.
+  CLOSED: [2013-03-18 Mon 14:01]
+  - CLOSING NOTE [2013-03-18 Mon 14:01] \\
+    We’re doing it with ad-hoc tests right now, might want to switch to
+    some kind of equality-predicate for self-evaluation.
+  Should we do some kind of type inference, or actually check whether
+  or not the evaluatum is the same as the evaluandum?
+
+  #+BEGIN_SRC scheme
+    (use srfi-13)
+    
+    (define debug? (make-parameter #t))
+    
+    (define-syntax debug
+      (syntax-rules ()
+        ((_ x ...)
+         (with-output-to-port
+             (current-error-port)
+           (lambda ()
+             (when (debug?)
+               ;; Handle some of the self-evaluating scalars in an ad-hoc
+               ;; fashion (can't do this with e.g. lists and symbols,
+               ;; though); alternatively: compare the expression with its
+               ;; evaluated form for equality over some arbitrary
+               ;; predicate (e.g. `equal?'): this might imply
+               ;; self-evaluation.
+               (pp `(,(if (or (boolean? 'x)
+                              (char? 'x)
+                              (number? 'x)
+                              (string? 'x)
+                              (vector? 'x))
+                          x
+                          `(x =>
+                              ,(handle-exceptions
+                                   exn
+                                 (let ((message
+                                        ((condition-property-accessor
+                                          'exn
+                                          'message)
+                                         exn))
+                                       (arguments
+                                        ((condition-property-accessor
+                                          'exn
+                                          'arguments)
+                                         exn)))
+                                   (format "Error: ~a~a"
+                                           message
+                                           (if (null? arguments)
+                                               ""
+                                               (format
+                                                ": ~a"
+                                                (string-join
+                                                 (map ->string arguments)
+                                                 ", ")))))
+                                 x)))
+                     ...))))))))
+    
+    (define x 2)
+    
+    (debug (string-join '("'my-nuts" "deez-nuts"))
+           "harro"
+           x
+           (current-output-port)
+           (lambda () string-join)
+           '(1 2 3))
+  #+END_SRC
 * TODO =untrace=
 * DONE Quote
   CLOSED: [2012-10-06 Sat 14:11]
