@@ -1,3 +1,4 @@
+* TODO For literals, don’t bother printing the evaluation.
 * TODO =untrace=
 * DONE Quote
   CLOSED: [2012-10-06 Sat 14:11]
