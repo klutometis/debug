@@ -60,6 +60,7 @@
     (debug (string-join '("'my-nuts" "deez-nuts"))
            "harro"
            x
+           'x
            (current-output-port)
            (lambda () string-join)
            '(1 2 3))
