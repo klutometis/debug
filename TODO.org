@@ -1,3 +1,30 @@
+* TODO See [[https://github.com/lihaoyi/macropy#tracing][MacroPy's tracing]].
+  It’s pretty cool:
+
+  #+BEGIN_EXAMPLE
+    from macropy.tracing import macros, trace
+    with trace:
+        sum = 0
+        for i in range(0, 5):
+            sum = sum + 5
+    
+    # sum = 0
+    # for i in range(0, 5):
+    #     sum = sum + 5
+    # range(0, 5) -> [0, 1, 2, 3, 4]
+    # sum = sum + 5
+    # sum + 5 -> 5
+    # sum = sum + 5
+    # sum + 5 -> 10
+    # sum = sum + 5
+    # sum + 5 -> 15
+    # sum = sum + 5
+    # sum + 5 -> 20
+    # sum = sum + 5
+    # sum + 5 -> 25
+  #+END_EXAMPLE
+
+  It traces everyexpression in the block!
 * DONE For literals, don’t bother printing the evaluation.
   CLOSED: [2013-03-18 Mon 14:01]
   - CLOSING NOTE [2013-03-18 Mon 14:01] \\
