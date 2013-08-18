@@ -1,9 +1,12 @@
-((egg "debug.egg")
+((egg "debug")
  (files "debug.scm"
         "debug.setup")
  (license "BSD")
  (category debugging)
  (author "Peter Danenberg")
+ (email "pcd@roxygen.org")
+ (user "klutometis")
+ (repo "https://github.com/klutometis/debug")
  (depends cock
           matchable
           setup-helper

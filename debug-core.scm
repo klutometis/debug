@@ -1,9 +1,3 @@
-@(title "Debug")
-@(description "A couple of Joe-Armstrong-style debugging macros")
-@(author "Peter Danenberg")
-@(username "klutometis")
-@(email "pcd@roxygen.org")
-
 @(heading "Abstract")
 @(text "According to [[http://books.google.com/books?id=nneBa6-mWfgC&lpg=PA227&ots=gEvyGdNW3u&dq=%22thou%20shalt%20put%20printf%22&pg=PA227#v=onepage&q=%22thou%20shalt%20put%20printf%22&f=false|Joe Armstrong]], \"The great gods of programming said, 'Thou shalt put {{printf}}
 statements in your program at the point where you think it’s gone
