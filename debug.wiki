@@ -95,14 +95,19 @@ expression and their evaluations.
                                x)))
                      ...))))))))
 </enscript>
+==== {{debug-priority}}
+<parameter>debug-priority → prio/debug</parameter>
+The priority associated with {{debug/syslog}}
+<enscript highlight="scheme">(define debug-priority (make-parameter prio/debug))
+</enscript>
 ==== {{debug/syslog}}
 <syntax>(debug/syslog expressions) → unspecified</syntax>
 Debug to syslog.
 ; expressions : The expressions to debug (cf. `debug' supra)
 <enscript highlight="scheme">(define-syntax
   debug/syslog
-  (er-macro-transformer
-    (lambda (expression rename compare)
+  (ir-macro-transformer
+    (lambda (expression rename inject)
       `(let ((port (make-syslog-port)))
          (with-error-output-to-port
            port
