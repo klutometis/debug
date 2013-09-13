@@ -146,6 +146,7 @@ BSD
 ; 0.3.7 : Self-evaluating scalars
 ; 0.3.8 : Fix tests
 ; 0.3.9 : Fix debug/syslog.
+; 0.3.10 : Default-priority -> debug-priority
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].
