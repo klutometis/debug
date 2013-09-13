@@ -92,12 +92,14 @@ expression and their evaluations."
                              x)))
                  ...))))))))
 
-(define default-priority (make-parameter prio/debug))
+(define debug-priority
+  @("The priority associated with {{debug/syslog}}")
+  (make-parameter prio/debug))
 
 (define make-syslog-port
   (case-lambda
    (()
-    (make-syslog-port (default-priority)))
+    (make-syslog-port (debug-priority)))
    ((priority)
     (let ((buffer ""))
       (make-output-port
