@@ -109,8 +109,8 @@ expression and their evaluations."
 (define-syntax debug/syslog
   @("Debug to syslog."
     (expressions "The expressions to debug (cf. `debug' supra)"))
-  (er-macro-transformer
-   (lambda (expression rename compare)
+  (ir-macro-transformer
+   (lambda (expression rename inject)
      `(let ((port (make-syslog-port)))
         (with-error-output-to-port
          port
