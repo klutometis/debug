@@ -1,3 +1,4 @@
+* TODO Deal with multiple values.
 * TODO See [[https://github.com/lihaoyi/macropy#tracing][MacroPy's tracing]].
   It’s pretty cool:
 
