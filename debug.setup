@@ -10,5 +10,5 @@
 
 (handle-exceptions exn
   (warning "Not generating documentation")
-  (include "setup-helper-cock")
+  (load "setup-helper-cock")
   (run-cock -o debug.wiki debug-core.scm))
