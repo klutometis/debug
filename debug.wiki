@@ -129,6 +129,7 @@ BSD
 * [[cock]]
 * [[matchable]]
 * [[setup-helper]]
+* [[setup-helper-cock]]
 * [[syslog]]
 
 ==== Versions
