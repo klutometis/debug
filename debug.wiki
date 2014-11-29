@@ -129,26 +129,25 @@ BSD
 * [[cock]]
 * [[matchable]]
 * [[setup-helper]]
-* [[setup-helper-cock]]
 * [[syslog]]
 
 ==== Versions
-; 0.1 : Version 0.1
-; 0.1.1 : Version 0.1.1
-; 0.1.2 : BSD
-; 0.2 : Add a `debug?'-parameter.
-; 0.3 : Add exception-guard; document.
-; 0.3.1 : Add "Error: ..."
-; 0.3.2 : Add arguments in errors.
-; 0.3.3 : Don't do arguments if we don't have to.
-; 0.3.4 : With a note about cock-utils
-; 0.3.5 : Add test-exit.
-; 0.3.6 : Disable an offending test.
-; 0.3.7 : Self-evaluating scalars
-; 0.3.8 : Fix tests
-; 0.3.9 : Fix debug/syslog.
-; 0.3.10 : Default-priority -> debug-priority
-; 0.3.11 : Use setup-helper-cock.
+; [[https://github.com/klutometis/debug/releases/tag/0.1|0.1]] : Version 0.1
+; [[https://github.com/klutometis/debug/releases/tag/0.1.1|0.1.1]] : Version 0.1.1
+; [[https://github.com/klutometis/debug/releases/tag/0.1.2|0.1.2]] : BSD
+; [[https://github.com/klutometis/debug/releases/tag/0.2|0.2]] : Add a `debug?'-parameter.
+; [[https://github.com/klutometis/debug/releases/tag/0.3|0.3]] : Add exception-guard; document.
+; [[https://github.com/klutometis/debug/releases/tag/0.3.1|0.3.1]] : Add "Error: ..."
+; [[https://github.com/klutometis/debug/releases/tag/0.3.2|0.3.2]] : Add arguments in errors.
+; [[https://github.com/klutometis/debug/releases/tag/0.3.3|0.3.3]] : Don't do arguments if we don't have to.
+; [[https://github.com/klutometis/debug/releases/tag/0.3.4|0.3.4]] : With a note about cock-utils
+; [[https://github.com/klutometis/debug/releases/tag/0.3.5|0.3.5]] : Add test-exit.
+; [[https://github.com/klutometis/debug/releases/tag/0.3.6|0.3.6]] : Disable an offending test.
+; [[https://github.com/klutometis/debug/releases/tag/0.3.7|0.3.7]] : Self-evaluating scalars
+; [[https://github.com/klutometis/debug/releases/tag/0.3.8|0.3.8]] : Fix tests
+; [[https://github.com/klutometis/debug/releases/tag/0.3.9|0.3.9]] : Fix debug/syslog.
+; [[https://github.com/klutometis/debug/releases/tag/0.3.10|0.3.10]] : Default-priority -> debug-priority
+; [[https://github.com/klutometis/debug/releases/tag/0.3.11|0.3.11]] : Use setup-helper-cock.
 ==== Colophon
 
 Documented by [[/egg/cock|cock]].

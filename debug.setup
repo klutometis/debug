@@ -6,7 +6,7 @@
 
 (setup-shared-extension-module
  'debug
- (extension-version "0.3.11")
+ (extension-version "0.3.12")
  compile-options: '(-X cock))
 
 (run-cock -o debug.wiki debug-core.scm)

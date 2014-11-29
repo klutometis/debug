@@ -10,7 +10,6 @@
  (depends cock
           matchable
           setup-helper
-          setup-helper-cock
           syslog)
  (test-depends test)
  (synopsis "Some trivial debugging macros"))
