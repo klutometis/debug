@@ -1,12 +1,10 @@
-;;; -*- Hen -*-
-(include "setup-helper")
-(include "setup-helper-cock")
+(use cock setup-helper-mod)
 
 (verify-extension-name "debug")
 
 (setup-shared-extension-module
  'debug
- (extension-version "0.3.12")
+ (extension-version "0.3.13")
  compile-options: '(-X cock))
 
 (run-cock -o debug.wiki debug-core.scm)
