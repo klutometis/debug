@@ -1,4 +1,4 @@
-* TODO Counting invocations.
+* TODO Count invocations.
 * TODO Like e.g. Clojure, implement =watch=.
 * TODO Deal with multiple values.
 * TODO See [[https://github.com/lihaoyi/macropy#tracing][MacroPy's tracing]].
