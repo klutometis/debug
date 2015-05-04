@@ -126,7 +126,7 @@ Debug to syslog.
 ==== License
 BSD
 ==== Dependencies
-* [[(hahn 0.9.3)]]
+* [[hahn]]
 * [[matchable]]
 * [[setup-helper]]
 * [[syslog]]
@@ -151,6 +151,7 @@ BSD
 ; [[https://github.com/klutometis/debug/releases/tag/0.3.12|0.3.12]] : Remove the dependency on setup-helper-cock.
 ; [[https://github.com/klutometis/debug/releases/tag/0.3.13|0.3.13]] : Drop setup-helper-cock.
 ; [[https://github.com/klutometis/debug/releases/tag/0.3.14|0.3.14]] : Use ports, don't merely import it.
+; [[https://github.com/klutometis/debug/releases/tag/0.3.15|0.3.15]] : Use hahn.
 ==== Colophon
 
 Documented by [[/egg/hahn|hahn]].
