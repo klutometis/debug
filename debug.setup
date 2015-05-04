@@ -1,10 +1,10 @@
-(use cock setup-helper-mod)
+(use hahn setup-helper-mod)
 
 (verify-extension-name "debug")
 
 (setup-shared-extension-module
  'debug
- (extension-version "0.3.14")
- compile-options: '(-X cock))
+ (extension-version "0.3.15")
+ compile-options: '(-X hahn))
 
-(run-cock -o debug.wiki debug-core.scm)
+(run-hahn -o debug.wiki debug-core.scm)

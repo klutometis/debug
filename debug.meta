@@ -7,7 +7,7 @@
  (email "pcd@roxygen.org")
  (user "klutometis")
  (repo "https://github.com/klutometis/debug")
- (depends cock
+ (depends (hahn "0.9.3")
           matchable
           setup-helper
           syslog)
