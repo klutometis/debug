@@ -65,7 +65,8 @@ expression and their evaluations."
                           (char? 'x)
                           (number? 'x)
                           (string? 'x)
-                          (vector? 'x))
+                          (vector? 'x)
+                          (and (pair? 'x) (eq? (car 'x) 'quote)))
                       x
                       `(x =>
                           ,(handle-exceptions

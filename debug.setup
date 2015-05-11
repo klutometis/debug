@@ -4,7 +4,7 @@
 
 (setup-shared-extension-module
  'debug
- (extension-version "0.3.15")
+ (extension-version "0.3.16")
  compile-options: '(-X hahn))
 
 (run-hahn -o debug.wiki debug-core.scm)

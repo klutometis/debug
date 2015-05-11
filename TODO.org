@@ -30,6 +30,9 @@
   #+END_EXAMPLE
 
   It traces everyexpression in the block!
+* TODO =untrace=
+* DONE Treat quoted things like self-evaluating expressions.
+  CLOSED: [2015-05-11 Mon 16:28]
 * DONE For literals, don’t bother printing the evaluation.
   CLOSED: [2013-03-18 Mon 14:01]
   - CLOSING NOTE [2013-03-18 Mon 14:01] \\
@@ -97,7 +100,6 @@
            (lambda () string-join)
            '(1 2 3))
   #+END_SRC
-* TODO =untrace=
 * DONE Quote
   CLOSED: [2012-10-06 Sat 14:11]
   - CLOSING NOTE [2012-10-06 Sat 14:11] \\
